@@ -1,0 +1,1595 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.0.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Nov 04, 2019 at 08:24 AM
+-- Server version: 10.3.16-MariaDB
+-- PHP Version: 7.1.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `absen`
+--
+CREATE DATABASE IF NOT EXISTS `absen` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `absen`;
+--
+-- Database: `biznance2`
+--
+CREATE DATABASE IF NOT EXISTS `biznance2` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `biznance2`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `buku`
+--
+
+CREATE TABLE `buku` (
+  `id_buku` int(11) NOT NULL,
+  `id_kategori` int(11) DEFAULT NULL,
+  `judul` varchar(250) DEFAULT NULL,
+  `pengarang` varchar(250) DEFAULT NULL,
+  `jenis_buku` varchar(250) DEFAULT NULL,
+  `penerbit` varchar(250) DEFAULT NULL,
+  `tahun_terbit` date DEFAULT NULL,
+  `fileName` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `buku`
+--
+
+INSERT INTO `buku` (`id_buku`, `id_kategori`, `judul`, `pengarang`, `jenis_buku`, `penerbit`, `tahun_terbit`, `fileName`) VALUES
+(1, 1, 'Lika-Liku Kehidupan', 'Rizki Karianata', 'Misteri', 'Gramedia', '2019-10-06', ''),
+(2, 3, 'One Piece', 'Oda Sensei', 'Kartun', 'Gramedia', '2007-12-01', ''),
+(3, 4, 'Si Kancil', 'Dalang Pelo', 'Fabel', 'Airlangga', '2017-11-06', 'sikancil.jpg'),
+(4, 2, 'Ki Hajar Dewantara', 'Ahmad Subardjo', 'Jurnalistik', 'Gramedia', '2005-03-10', ''),
+(5, 1, 'Dilan 1991', 'Pidi Baiq', 'Romantis', 'Gramedia', '2017-09-12', ''),
+(6, 1, 'Dilan 1990', 'Pidi Baiq', 'Romantis', 'Gramedia', '2018-10-08', ''),
+(7, 5, 'Dasar - Dasar Java', 'Bima Laksamana', 'Java', 'Airlangga', '2019-10-08', ''),
+(18, 1, 'Saat Bersamamu', 'Lyra Ayu', 'Romantis', 'Gramedia', '2016-10-09', ''),
+(19, 1, 'Suka Duka', 'Dicky', 'Misteri', 'Gramedia', '2016-10-09', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kategori`
+--
+
+CREATE TABLE `kategori` (
+  `id_kategori` int(11) NOT NULL,
+  `nama_kategori` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kategori`
+--
+
+INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
+(1, 'Novel'),
+(2, 'Biografi'),
+(3, 'Komik'),
+(4, 'Dongeng'),
+(5, 'Pemrograman');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `peminjam`
+--
+
+CREATE TABLE `peminjam` (
+  `id_peminjam` int(11) NOT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `asal_sekolah` varchar(255) DEFAULT NULL,
+  `alamat` varchar(255) DEFAULT NULL,
+  `nisn` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `peminjam`
+--
+
+INSERT INTO `peminjam` (`id_peminjam`, `nama`, `asal_sekolah`, `alamat`, `nisn`) VALUES
+(14, 'Achmad Zulfikar', 'SMK JAKARTA PUSAT 1', 'Jln. Abdul muis', 12345),
+(15, 'Adinda Putri Stevany', 'SMK JAKARTA PUSAT 1', 'Jln. Abdul muis', 12346);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pengaturan`
+--
+
+CREATE TABLE `pengaturan` (
+  `id` int(11) NOT NULL,
+  `isi` text DEFAULT NULL,
+  `judul` varchar(250) DEFAULT NULL,
+  `tgl_dibuat` date DEFAULT NULL,
+  `status` enum('1','2') DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pengaturan`
+--
+
+INSERT INTO `pengaturan` (`id`, `isi`, `judul`, `tgl_dibuat`, `status`) VALUES
+(1, 'Untuk menemukan pengaturan, klik pengaturan menu Privasi dan Keamanan di bagian pages. Dari sini, Anda dapat memilih opsi di bagian kanan bilah sisi yang berisi pengaturan yang ingin Anda sesuaikan.', 'Dimana saya bisa menemukan pengaturan Perpustakaan?', '2019-10-07', '1'),
+(2, 'Anda dapat menggunakan fitur lupa password pada halaman login', 'Bagaimana cara mengubah atau mereset kata sandi Perpustakaan saya?', '2019-10-07', '2'),
+(3, 'Profil Anda memberi tahu berita Anda. Anda dapat memilih apa yang dibagikan, seperti minat, foto, dan informasi pribadi seperti kota asal Anda, dan dengan siapa Anda membagikannya. Profil Anda mencakup Kronologi Anda, tempat Anda dapat melihat kiriman Anda sendiri dan kiriman yang menandai Anda. Kronologi dan pengaturan penandaan Anda akan membantu Anda mengelola tanda dan meninjau siapa yang dapat menambahkan dan melihat hal-hal di Kronologi Anda.', 'Profil dan Pengaturan Anda', '2019-10-05', '1'),
+(4, 'Halaman ditujukan untuk merek, bisnis, organisasi dan tokoh masyarakat untuk membuat kehadiran di Facebook, sedangkan profil mewakili setiap individu. Siapa saja dengan akun dapat membuat Halaman atau membantu mengelola halaman, jika mereka sudah diberi peran di Halaman seperti pengurus atau penyunting. Orang yang menyukai Halaman Anda dan teman mereka akan mendapatkan pembaruan di Kabar Berita.', 'Halaman', '2019-10-07', '2'),
+(5, 'Untuk membuat akun perpustakaan Anda harus berada di halaman login lalu klik daftar. Setelah itu anda harus mengisi formulir dengan benar tanpa adanya penipuan', 'Bagaimana cara membuat akun Perpustakaan?', '2019-10-06', '1'),
+(6, 'Jika Anda mengetahui kata sandi saat ini, Anda bisa mengubahnya. Ketika membuat kata sandi baru, harap diingat bahwa: Kata sandi Anda harus mudah diingat, tetapi sulit ditebak orang lain. Kata sandi Facebook Anda harus berbeda dari kata sandi lain yang digunakan untuk login ke akun lain, seperti akun email atau akun bank. Kata sandi yang lebih panjang biasanya lebih aman. Kata sandi Anda tidak boleh berupa email, nomor telepon, atau ulang tahun Anda.', 'Login dan Kata Sandi', '2019-10-05', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `petugas`
+--
+
+CREATE TABLE `petugas` (
+  `id_petugas` int(11) NOT NULL,
+  `nama` varchar(250) DEFAULT NULL,
+  `alamat` text DEFAULT NULL,
+  `tempat_lahir` varchar(250) DEFAULT NULL,
+  `tgl_lahir` date DEFAULT NULL,
+  `no_hp` varchar(20) DEFAULT NULL,
+  `jenis_kelamin` enum('Laki-Laki','Perempuan') DEFAULT NULL,
+  `agama` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `petugas`
+--
+
+INSERT INTO `petugas` (`id_petugas`, `nama`, `alamat`, `tempat_lahir`, `tgl_lahir`, `no_hp`, `jenis_kelamin`, `agama`) VALUES
+(1, 'Pa Firman', 'Jl. Sukun', 'Jakarta', '1979-07-06', '0895395333224', 'Laki-Laki', 'Islam');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `siswa`
+--
+
+CREATE TABLE `siswa` (
+  `id_siswa` int(11) NOT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `alamat` text DEFAULT NULL,
+  `asal_sekolah` varchar(255) DEFAULT NULL,
+  `tgl_lahir` date DEFAULT NULL,
+  `jenis_kelamin` enum('Laki-Laki','Perempuan') DEFAULT NULL,
+  `agama` varchar(255) DEFAULT NULL,
+  `nisn` int(11) DEFAULT NULL,
+  `tempat_lahir` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `siswa`
+--
+
+INSERT INTO `siswa` (`id_siswa`, `nama`, `alamat`, `asal_sekolah`, `tgl_lahir`, `jenis_kelamin`, `agama`, `nisn`, `tempat_lahir`) VALUES
+(42, 'Achmad Zulfikar', 'Jln. Abdul muis', 'SMK JAKARTA PUSAT 1', '2019-11-01', 'Laki-Laki', 'Islam', 12345, 'Jakarta'),
+(43, 'Adinda Putri Stevany', 'Jln. Abdul muis', 'SMK JAKARTA PUSAT 1', '2019-11-01', 'Perempuan', 'Islam', 12346, 'Jakarta'),
+(44, 'Akmal Widad Iskandar', 'Jln. Abdul muis', 'SMK JAKARTA PUSAT 1', '2019-11-01', 'Laki-Laki', 'Islam', 12347, 'Jakarta'),
+(45, 'Alif Nandar Lesmana', 'Jln. Abdul muis', 'SMK JAKARTA PUSAT 1', '2019-11-01', 'Laki-Laki', 'Islam', 12348, 'Jakarta'),
+(46, 'Ananda Zidane Satriani', 'Jln. Abdul muis', 'SMK JAKARTA PUSAT 1', '2019-11-01', 'Laki-Laki', 'Islam', 12349, 'Jakarta'),
+(47, 'Ariq Zakirasli', 'Jln. Abdul muis', 'SMK JAKARTA PUSAT 1', '2019-11-01', 'Laki-Laki', 'Islam', 12342, 'Jakarta'),
+(48, 'Farhah Kamilatun Nuha', 'Jln. Abdul muis', 'SMK JAKARTA PUSAT 1', '2019-11-01', 'Perempuan', 'Islam', 19235, 'Jakarta'),
+(49, 'Fury Nashwa Aspirna', 'Jln. Talib III', 'SMK JAKARTA PUSAT 1', '2019-11-01', 'Perempuan', 'Islam', 62713, 'Jakarta'),
+(50, 'Ghetsa Azzahra Putri', 'Jln. Abdul muis', 'SMK JAKARTA PUSAT 1', '2019-11-01', 'Perempuan', 'Islam', 78212, 'Jakarta'),
+(51, 'Gustam Rheza Mahendra', 'Jln. Abdul muis', 'SMK JAKARTA PUSAT 1', '2019-11-01', 'Laki-Laki', 'Islam', 43231, 'Jakarta'),
+(52, 'Hilmi', 'Jln. Abdul muis', 'SMK JAKARTA PUSAT 1', '2019-11-01', 'Laki-Laki', 'Islam', 11231, 'Jakarta'),
+(53, 'Jane Nur Fajriah', 'Jln. Abdul muis', 'SMK JAKARTA PUSAT 1', '2019-11-01', 'Perempuan', 'Islam', 98231, 'Jakarta');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaksi`
+--
+
+CREATE TABLE `transaksi` (
+  `id` int(11) NOT NULL,
+  `id_buku` int(11) DEFAULT NULL,
+  `id_peminjam` int(11) DEFAULT NULL,
+  `jumlah_buku` int(11) DEFAULT NULL,
+  `tgl_pinjam` varchar(100) DEFAULT NULL,
+  `tgl_kembali` varchar(200) DEFAULT NULL,
+  `status` enum('1','2') DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id`, `id_buku`, `id_peminjam`, `jumlah_buku`, `tgl_pinjam`, `tgl_kembali`, `status`) VALUES
+(10, 2, 14, 1, '2019-11-04', '2019-11-04', '2'),
+(11, 3, 15, 1, '2019-11-04', '2019-11-04', '2');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id_user` int(11) NOT NULL,
+  `username` varchar(250) DEFAULT NULL,
+  `password` varchar(250) DEFAULT NULL,
+  `nama` varchar(250) DEFAULT NULL,
+  `email` varchar(250) DEFAULT NULL,
+  `level` enum('admin','user') DEFAULT NULL,
+  `bio` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id_user`, `username`, `password`, `nama`, `email`, `level`, `bio`) VALUES
+(4, 'gustam', 'admin', 'Gustam rheza', 'rhezagustam@gmail.com', 'admin', 'kunyuk'),
+(22, 'yusrilagisha', 'user', 'Yusril Agisha Hendrawan', 'yusril.agisha12@gmail.com', '', ''),
+(23, 'najwabajabir', 'user', 'Najwa', 'najwa@gmail.com', 'user', NULL);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `buku`
+--
+ALTER TABLE `buku`
+  ADD PRIMARY KEY (`id_buku`);
+
+--
+-- Indexes for table `kategori`
+--
+ALTER TABLE `kategori`
+  ADD PRIMARY KEY (`id_kategori`);
+
+--
+-- Indexes for table `peminjam`
+--
+ALTER TABLE `peminjam`
+  ADD PRIMARY KEY (`id_peminjam`);
+
+--
+-- Indexes for table `pengaturan`
+--
+ALTER TABLE `pengaturan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `petugas`
+--
+ALTER TABLE `petugas`
+  ADD PRIMARY KEY (`id_petugas`);
+
+--
+-- Indexes for table `siswa`
+--
+ALTER TABLE `siswa`
+  ADD PRIMARY KEY (`id_siswa`);
+
+--
+-- Indexes for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id_user`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `buku`
+--
+ALTER TABLE `buku`
+  MODIFY `id_buku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=605;
+
+--
+-- AUTO_INCREMENT for table `kategori`
+--
+ALTER TABLE `kategori`
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `peminjam`
+--
+ALTER TABLE `peminjam`
+  MODIFY `id_peminjam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `pengaturan`
+--
+ALTER TABLE `pengaturan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `petugas`
+--
+ALTER TABLE `petugas`
+  MODIFY `id_petugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `siswa`
+--
+ALTER TABLE `siswa`
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+
+--
+-- AUTO_INCREMENT for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+--
+-- Database: `crud_db`
+--
+CREATE DATABASE IF NOT EXISTS `crud_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `crud_db`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `mobile` varchar(15) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `mobile`) VALUES
+(1, 'Rizal NH', 'rizalnh9@gmail.com', '12345678910'),
+(2, 'Rendi F', 'rendifadillah009@gmail.com', '12345678911'),
+(3, 'Huda', 'rizalnh298@gmail.com', '12345678912'),
+(4, 'Aduh', 'rizalnh268@gmail.com', '12345678913');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- Database: `db_voting`
+--
+CREATE DATABASE IF NOT EXISTS `db_voting` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `db_voting`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_admin`
+--
+
+CREATE TABLE `tb_admin` (
+  `user` varchar(16) NOT NULL,
+  `pass` varchar(16) NOT NULL,
+  `level` varchar(16) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_admin`
+--
+
+INSERT INTO `tb_admin` (`user`, `pass`, `level`) VALUES
+('gustam', 'admin', 'admin'),
+('rijal', 'admin', 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_pemilih`
+--
+
+CREATE TABLE `tb_pemilih` (
+  `id_pemilih` int(11) NOT NULL,
+  `ktp` varchar(16) NOT NULL,
+  `nama_pemilih` varchar(64) NOT NULL,
+  `alamat` varchar(255) NOT NULL,
+  `pass` varchar(16) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_pemilih`
+--
+
+INSERT INTO `tb_pemilih` (`id_pemilih`, `ktp`, `nama_pemilih`, `alamat`, `pass`) VALUES
+(20, '14567', 'rino', '11 rpl 1', 'user'),
+(21, '12367', 'wisman', '11 rpl 1', 'user'),
+(22, '15678', 'nanda', '11 rpl 1', 'user'),
+(23, '89878', 'zidan', '11 rpl 1', 'user'),
+(19, '09876', 'jane', '11 rpl 1', 'user'),
+(18, '12345', 'vicky', '11 rpl 1', 'user');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_pencalon`
+--
+
+CREATE TABLE `tb_pencalon` (
+  `id_pencalon` int(11) NOT NULL,
+  `kode_pencalon` varchar(16) NOT NULL,
+  `nama_pencalon` varchar(64) NOT NULL,
+  `gambar` varchar(255) NOT NULL,
+  `keterangan` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_pencalon`
+--
+
+INSERT INTO `tb_pencalon` (`id_pencalon`, `kode_pencalon`, `nama_pencalon`, `gambar`, `keterangan`) VALUES
+(2, '1', '1. Gustam dan Yogi', '1.jpg', 'Visi : Membuat warga jp menjadi lebih santuy\r\n\r\nMisi : Meningkatkan ketenangan dan kesantuyan dalam belajar mengajar'),
+(5, '2', '2. Nanda dan Rizal', '2.jpg', 'Visi : Mentiadakan arkademy di hari sabtu\r\n\r\nMisi : Memberi banyak libur kepada warga jp'),
+(6, '3', '3. Akmal dan Azis', '3.jpg', 'Visi : Membuat bibir warga jp tebel\r\n\r\nMisi : Membuat warga jp menjadi lebih hitam kulitnya');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_pilih`
+--
+
+CREATE TABLE `tb_pilih` (
+  `ID` int(11) NOT NULL,
+  `id_pencalon` int(16) NOT NULL,
+  `id_pemilih` int(16) NOT NULL,
+  `tanda_terima` varchar(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_pilih`
+--
+
+INSERT INTO `tb_pilih` (`ID`, `id_pencalon`, `id_pemilih`, `tanda_terima`) VALUES
+(17, 2, 22, '17MATZXURB'),
+(16, 5, 21, '16DGZRFESV'),
+(15, 2, 20, '15XDTEHBSJ'),
+(14, 2, 19, '14UECZNOFA'),
+(13, 6, 18, '13JSULZYVR'),
+(18, 5, 23, '18NFOSRCAM');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tb_admin`
+--
+ALTER TABLE `tb_admin`
+  ADD PRIMARY KEY (`user`);
+
+--
+-- Indexes for table `tb_pemilih`
+--
+ALTER TABLE `tb_pemilih`
+  ADD PRIMARY KEY (`id_pemilih`);
+
+--
+-- Indexes for table `tb_pencalon`
+--
+ALTER TABLE `tb_pencalon`
+  ADD PRIMARY KEY (`id_pencalon`,`kode_pencalon`);
+
+--
+-- Indexes for table `tb_pilih`
+--
+ALTER TABLE `tb_pilih`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tb_pemilih`
+--
+ALTER TABLE `tb_pemilih`
+  MODIFY `id_pemilih` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `tb_pencalon`
+--
+ALTER TABLE `tb_pencalon`
+  MODIFY `id_pencalon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `tb_pilih`
+--
+ALTER TABLE `tb_pilih`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+--
+-- Database: `latihan_2`
+--
+CREATE DATABASE IF NOT EXISTS `latihan_2` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `latihan_2`;
+--
+-- Database: `latihan_5`
+--
+CREATE DATABASE IF NOT EXISTS `latihan_5` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `latihan_5`;
+--
+-- Database: `mala_tugas`
+--
+CREATE DATABASE IF NOT EXISTS `mala_tugas` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `mala_tugas`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `osisss`
+--
+
+CREATE TABLE `osisss` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(225) NOT NULL,
+  `username` varchar(225) NOT NULL,
+  `password` varchar(225) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+--
+-- Database: `phpmyadmin`
+--
+CREATE DATABASE IF NOT EXISTS `phpmyadmin` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `phpmyadmin`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__bookmark`
+--
+
+CREATE TABLE `pma__bookmark` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `dbase` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `user` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `label` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `query` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Bookmarks';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__central_columns`
+--
+
+CREATE TABLE `pma__central_columns` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_type` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_length` text COLLATE utf8_bin DEFAULT NULL,
+  `col_collation` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_isNull` tinyint(1) NOT NULL,
+  `col_extra` varchar(255) COLLATE utf8_bin DEFAULT '',
+  `col_default` text COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Central list of columns';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__column_info`
+--
+
+CREATE TABLE `pma__column_info` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `column_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `comment` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `mimetype` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `transformation` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `transformation_options` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `input_transformation` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `input_transformation_options` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Column information for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__designer_settings`
+--
+
+CREATE TABLE `pma__designer_settings` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `settings_data` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Settings related to Designer';
+
+--
+-- Dumping data for table `pma__designer_settings`
+--
+
+INSERT INTO `pma__designer_settings` (`username`, `settings_data`) VALUES
+('root', '{\"snap_to_grid\":\"off\",\"angular_direct\":\"direct\",\"relation_lines\":\"true\"}');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__export_templates`
+--
+
+CREATE TABLE `pma__export_templates` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `export_type` varchar(10) COLLATE utf8_bin NOT NULL,
+  `template_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `template_data` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Saved export templates';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__favorite`
+--
+
+CREATE TABLE `pma__favorite` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `tables` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Favorite tables';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__history`
+--
+
+CREATE TABLE `pma__history` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `username` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `timevalue` timestamp NOT NULL DEFAULT current_timestamp(),
+  `sqlquery` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='SQL history for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__navigationhiding`
+--
+
+CREATE TABLE `pma__navigationhiding` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `item_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `item_type` varchar(64) COLLATE utf8_bin NOT NULL,
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Hidden items of navigation tree';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__pdf_pages`
+--
+
+CREATE TABLE `pma__pdf_pages` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `page_nr` int(10) UNSIGNED NOT NULL,
+  `page_descr` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='PDF relation pages for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__recent`
+--
+
+CREATE TABLE `pma__recent` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `tables` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Recently accessed tables';
+
+--
+-- Dumping data for table `pma__recent`
+--
+
+INSERT INTO `pma__recent` (`username`, `tables`) VALUES
+('root', '[{\"db\":\"biznance2\",\"table\":\"buku\"},{\"db\":\"biznance2\",\"table\":\"peminjam\"},{\"db\":\"biznance2\",\"table\":\"pengaturan\"},{\"db\":\"biznance2\",\"table\":\"petugas\"},{\"db\":\"biznance2\",\"table\":\"siswa\"},{\"db\":\"biznance2\",\"table\":\"transaksi\"},{\"db\":\"biznance2\",\"table\":\"user\"},{\"db\":\"biznance2\",\"table\":\"kategori\"},{\"db\":\"wpu_login\",\"table\":\"user_menu\"},{\"db\":\"wpu_login\",\"table\":\"user\"}]');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__relation`
+--
+
+CREATE TABLE `pma__relation` (
+  `master_db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `master_table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `master_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `foreign_db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `foreign_table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `foreign_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Relation table';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__savedsearches`
+--
+
+CREATE TABLE `pma__savedsearches` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `username` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `search_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `search_data` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Saved searches';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__table_coords`
+--
+
+CREATE TABLE `pma__table_coords` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `pdf_page_number` int(11) NOT NULL DEFAULT 0,
+  `x` float UNSIGNED NOT NULL DEFAULT 0,
+  `y` float UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table coordinates for phpMyAdmin PDF output';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__table_info`
+--
+
+CREATE TABLE `pma__table_info` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `display_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table information for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__table_uiprefs`
+--
+
+CREATE TABLE `pma__table_uiprefs` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `prefs` text COLLATE utf8_bin NOT NULL,
+  `last_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Tables'' UI preferences';
+
+--
+-- Dumping data for table `pma__table_uiprefs`
+--
+
+INSERT INTO `pma__table_uiprefs` (`username`, `db_name`, `table_name`, `prefs`, `last_update`) VALUES
+('root', 'db_voting', 'tb_pemilih', '{\"sorted_col\":\"`tb_pemilih`.`ktp`  DESC\"}', '2019-10-23 03:25:29');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__tracking`
+--
+
+CREATE TABLE `pma__tracking` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `version` int(10) UNSIGNED NOT NULL,
+  `date_created` datetime NOT NULL,
+  `date_updated` datetime NOT NULL,
+  `schema_snapshot` text COLLATE utf8_bin NOT NULL,
+  `schema_sql` text COLLATE utf8_bin DEFAULT NULL,
+  `data_sql` longtext COLLATE utf8_bin DEFAULT NULL,
+  `tracking` set('UPDATE','REPLACE','INSERT','DELETE','TRUNCATE','CREATE DATABASE','ALTER DATABASE','DROP DATABASE','CREATE TABLE','ALTER TABLE','RENAME TABLE','DROP TABLE','CREATE INDEX','DROP INDEX','CREATE VIEW','ALTER VIEW','DROP VIEW') COLLATE utf8_bin DEFAULT NULL,
+  `tracking_active` int(1) UNSIGNED NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Database changes tracking for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__userconfig`
+--
+
+CREATE TABLE `pma__userconfig` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `timevalue` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `config_data` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='User preferences storage for phpMyAdmin';
+
+--
+-- Dumping data for table `pma__userconfig`
+--
+
+INSERT INTO `pma__userconfig` (`username`, `timevalue`, `config_data`) VALUES
+('root', '2019-11-04 07:24:10', '{\"Console\\/Mode\":\"collapse\"}');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__usergroups`
+--
+
+CREATE TABLE `pma__usergroups` (
+  `usergroup` varchar(64) COLLATE utf8_bin NOT NULL,
+  `tab` varchar(64) COLLATE utf8_bin NOT NULL,
+  `allowed` enum('Y','N') COLLATE utf8_bin NOT NULL DEFAULT 'N'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='User groups with configured menu items';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__users`
+--
+
+CREATE TABLE `pma__users` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `usergroup` varchar(64) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Users and their assignments to user groups';
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `pma__bookmark`
+--
+ALTER TABLE `pma__bookmark`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pma__central_columns`
+--
+ALTER TABLE `pma__central_columns`
+  ADD PRIMARY KEY (`db_name`,`col_name`);
+
+--
+-- Indexes for table `pma__column_info`
+--
+ALTER TABLE `pma__column_info`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `db_name` (`db_name`,`table_name`,`column_name`);
+
+--
+-- Indexes for table `pma__designer_settings`
+--
+ALTER TABLE `pma__designer_settings`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `pma__export_templates`
+--
+ALTER TABLE `pma__export_templates`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `u_user_type_template` (`username`,`export_type`,`template_name`);
+
+--
+-- Indexes for table `pma__favorite`
+--
+ALTER TABLE `pma__favorite`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `pma__history`
+--
+ALTER TABLE `pma__history`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `username` (`username`,`db`,`table`,`timevalue`);
+
+--
+-- Indexes for table `pma__navigationhiding`
+--
+ALTER TABLE `pma__navigationhiding`
+  ADD PRIMARY KEY (`username`,`item_name`,`item_type`,`db_name`,`table_name`);
+
+--
+-- Indexes for table `pma__pdf_pages`
+--
+ALTER TABLE `pma__pdf_pages`
+  ADD PRIMARY KEY (`page_nr`),
+  ADD KEY `db_name` (`db_name`);
+
+--
+-- Indexes for table `pma__recent`
+--
+ALTER TABLE `pma__recent`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `pma__relation`
+--
+ALTER TABLE `pma__relation`
+  ADD PRIMARY KEY (`master_db`,`master_table`,`master_field`),
+  ADD KEY `foreign_field` (`foreign_db`,`foreign_table`);
+
+--
+-- Indexes for table `pma__savedsearches`
+--
+ALTER TABLE `pma__savedsearches`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `u_savedsearches_username_dbname` (`username`,`db_name`,`search_name`);
+
+--
+-- Indexes for table `pma__table_coords`
+--
+ALTER TABLE `pma__table_coords`
+  ADD PRIMARY KEY (`db_name`,`table_name`,`pdf_page_number`);
+
+--
+-- Indexes for table `pma__table_info`
+--
+ALTER TABLE `pma__table_info`
+  ADD PRIMARY KEY (`db_name`,`table_name`);
+
+--
+-- Indexes for table `pma__table_uiprefs`
+--
+ALTER TABLE `pma__table_uiprefs`
+  ADD PRIMARY KEY (`username`,`db_name`,`table_name`);
+
+--
+-- Indexes for table `pma__tracking`
+--
+ALTER TABLE `pma__tracking`
+  ADD PRIMARY KEY (`db_name`,`table_name`,`version`);
+
+--
+-- Indexes for table `pma__userconfig`
+--
+ALTER TABLE `pma__userconfig`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `pma__usergroups`
+--
+ALTER TABLE `pma__usergroups`
+  ADD PRIMARY KEY (`usergroup`,`tab`,`allowed`);
+
+--
+-- Indexes for table `pma__users`
+--
+ALTER TABLE `pma__users`
+  ADD PRIMARY KEY (`username`,`usergroup`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `pma__bookmark`
+--
+ALTER TABLE `pma__bookmark`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pma__column_info`
+--
+ALTER TABLE `pma__column_info`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pma__export_templates`
+--
+ALTER TABLE `pma__export_templates`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pma__history`
+--
+ALTER TABLE `pma__history`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pma__pdf_pages`
+--
+ALTER TABLE `pma__pdf_pages`
+  MODIFY `page_nr` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pma__savedsearches`
+--
+ALTER TABLE `pma__savedsearches`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- Database: `pilkasis`
+--
+CREATE DATABASE IF NOT EXISTS `pilkasis` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `pilkasis`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `datapemilihan`
+--
+
+CREATE TABLE `datapemilihan` (
+  `idpemilihan` int(5) NOT NULL,
+  `tipe` varchar(5) COLLATE latin1_general_ci NOT NULL,
+  `idpemilih` varchar(9) COLLATE latin1_general_ci DEFAULT NULL,
+  `idkandidat` varchar(2) COLLATE latin1_general_ci NOT NULL,
+  `waktu` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+--
+-- Dumping data for table `datapemilihan`
+--
+
+INSERT INTO `datapemilihan` (`idpemilihan`, `tipe`, `idpemilih`, `idkandidat`, `waktu`) VALUES
+(1, 'Siswa', '1', '2', '2017-06-10 19:02:42'),
+(2, 'Guru', '009', '1', '2017-06-11 04:58:43'),
+(3, 'Siswa', '2', '2', '2017-06-12 11:47:33'),
+(4, 'Guru', '161701002', '2', '2017-06-12 11:51:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `guru`
+--
+
+CREATE TABLE `guru` (
+  `nip` varchar(9) NOT NULL,
+  `username` varchar(25) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `jk` varchar(1) NOT NULL,
+  `mengajar` varchar(30) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `hp` varchar(15) NOT NULL,
+  `memilih` varchar(1) NOT NULL,
+  `aktif` enum('Y','T') NOT NULL DEFAULT 'T',
+  `foto` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `guru`
+--
+
+INSERT INTO `guru` (`nip`, `username`, `password`, `nama`, `jk`, `mengajar`, `email`, `hp`, `memilih`, `aktif`, `foto`) VALUES
+('009', 'cahyo', '772c2161cb7137df9da9d3ad4d57b16f', 'Cahyo', 'L', 'TIK', 'cahyo@aja.deh', '088', '', 'Y', 'AYat Kursi dan tajwidnya.jpg'),
+('010', 'Kosasih', 'cb2dd182b361be88c2b4d91e96ecb76a', 'Kosasih', '', 'PKN', '', '0898', '', 'Y', 'ai.png'),
+('011', 'yusuf', 'dd2eb170076a5dec97cdbbbbff9a4405', 'Yusuf', '', 'PKN', '', '076', '', 'Y', 'chat1.png'),
+('0123', 'dedi', 'c5897fbcc14ddcf30dca31b2735c3d7e', 'Dedi S', '', 'Biologi', '', '089', '', 'Y', 'AllahWithUs.jpg'),
+('071001006', 'yoga', '807659cd883fc0a63f6ce615893b3558', 'Yoga P', '', 'English', 'yoga@deh.ah', '0889', '', 'Y', 'LaptopIsropin.jpg'),
+('09876', 'fitri', '534a0b7aa872ad1340d0071cbfa38697', 'Fitro', '', 'KImia', '', '099', '', 'Y', '17309866_1297397137020730_2534770833228468758_n.jp'),
+('1111', '1111', 'e27e7dc272acb241669f1ba3c6f6084f', 'Naufal Mumtaz Ramadhan', '', 'Matematika', 'naufal@mr.dong', '088', '', 'T', 'Mosque-3.svg'),
+('111201003', 'ubay', '0e03189c41fa09c6750579dc9febc0b6', 'Abdullah Ubay Sidik', '', 'Ekonomi', 'ubay@gmail.com', '0817', '', 'Y', 'PembalasanSikucing.gif'),
+('1234', '1234', 'e070b35738ad4148a1b82320d738da44', 'Muhidin Saimin', '', 'TIK', 'muhidinsaimin@gmail.com', '081297224622', '', 'Y', 'AllahWithUs.jpg'),
+('161701001', 'nailah', '7d1834b54f1652fdc59f79c0dd46e137', 'Nailah Fauziyyah Tsabitah Az Zahra', '', 'Bahasa Sunda', 'nailah.fauziyyah@gmail.com', '081297224622', '', 'Y', '020520142098.jpg'),
+('161701002', 'humam', '6f99cd6a204c61990e0abbe993988efe', 'Humam Al Labib', 'L', 'Matematika', 'humam.alabib@gmail.com', '081297224622', '', 'Y', 'logo.png'),
+('161701004', 'dea', '96991368fec63c8a1bfc48a70010f84a', 'Dea', '', 'TIK', 'uoiu@aja.deh', '0812', '', 'Y', 'dasi.gif'),
+('181901005', 'Ainul', 'ce4b2ca8c5ad544d636e745224eb95d5', 'Ainul Yaqi', '', 'Bahasa Arab', 'ainul@aja.deh', '08', '', 'Y', 'wallpaper-BlankOn-3.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kandidat`
+--
+
+CREATE TABLE `kandidat` (
+  `idkandidat` int(2) NOT NULL,
+  `username` varchar(25) COLLATE latin1_general_ci NOT NULL,
+  `password` varchar(32) COLLATE latin1_general_ci NOT NULL,
+  `nama` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `nokandidat` varchar(2) COLLATE latin1_general_ci NOT NULL,
+  `jumlahsuara` varchar(4) COLLATE latin1_general_ci NOT NULL DEFAULT '0',
+  `visi` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `misi` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `aktif` enum('Y','T') COLLATE latin1_general_ci NOT NULL DEFAULT 'T',
+  `foto` varchar(50) COLLATE latin1_general_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+--
+-- Dumping data for table `kandidat`
+--
+
+INSERT INTO `kandidat` (`idkandidat`, `username`, `password`, `nama`, `nokandidat`, `jumlahsuara`, `visi`, `misi`, `aktif`, `foto`) VALUES
+(1, 'kandidat1', '8f23e4acba1b7f45423b930e7cfadbd0', 'Tuan dan Puan', '2', '2', 'Mejadikan sekolah ini sebagai sekolah SMA Favorit karena OSIS-nya', '<ol><li>Tahun ini harus haji semua pengurus OSISnya</li><li>\r\nMenjadikan bla..bla...</li><li>\r\njadinya hahahaha</li><li>\r\napa yah</li><li>\r\nbukan deh</li></ol>', 'Y', '411.jpg'),
+(2, 'muhidin', 'c0f6e70583525a8a265e19de06d6bff8', 'Muhidin', '1', '4', 'Menjadikan sebagai OSIS terbaik sekota Depok', '<ol><li>Membuat pengajian rutin</li><li>\nMengundang pembicara kaliber nasional per 3 bulan ke acara OSIS</li><li>lain-lain</li></ol>', 'Y', 'AllahWithUs.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kelas`
+--
+
+CREATE TABLE `kelas` (
+  `idkelas` int(2) NOT NULL,
+  `kelas` varchar(7) CHARACTER SET latin1 NOT NULL,
+  `jumlah` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kelas`
+--
+
+INSERT INTO `kelas` (`idkelas`, `kelas`, `jumlah`) VALUES
+(1, '10.1', 29),
+(2, '10.2', 31),
+(3, '10.3', 12),
+(4, 'satu', 21),
+(5, '11IPS', 25),
+(7, '11IPA01', 25);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pengguna`
+--
+
+CREATE TABLE `pengguna` (
+  `idpengguna` int(2) NOT NULL,
+  `username` varchar(25) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `jabatan` varchar(30) NOT NULL,
+  `hp` varchar(15) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `hakakses` varchar(15) NOT NULL,
+  `aktif` enum('Y','T') NOT NULL DEFAULT 'T',
+  `foto` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pengguna`
+--
+
+INSERT INTO `pengguna` (`idpengguna`, `username`, `password`, `nama`, `jabatan`, `hp`, `email`, `hakakses`, `aktif`, `foto`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Admin Web Pilkasis', 'Administrator', '081297224622', 'muhidinsaimin@gmail.com', 'Admin', 'Y', 'muhidin.jpg'),
+(8, 'humam', 'c3ec0f7b054e729c5a716c8125839829', 'Humam Al Labib', 'Siswa', '-', 'humam.alabib@gmail.com', 'Admin', 'Y', 'AllahWithUs.jpg'),
+(9, 'sma', 'a289fa4252ed5af8e3e9f9bee545c172', 'SMA Pro', 'sma', 'sma', 'sma@pro.id', 'Admin', 'Y', 'dasi.gif'),
+(10, 'dea', '96991368fec63c8a1bfc48a70010f84a', 'hhghjjgj', 'ghjg', 'hjgjhg', 'ghhjg@kj.hk', 'Magang', 'T', 'AYat Kursi dan tajwidnya.jpg'),
+(11, 'siakoe', '6d9a3b288d05321b95419a1f9afb6f49', 'Siakoe', 'Big Boss', '081297224622', 'siakoe@dong.ah', 'Magang', 'Y', 'suratname.png'),
+(12, 'Rahmat', '22edede458f67b60c14ae50be5b15f37', 'Muhammad Rahmat', 'Bos', '081', 'rah@mat.m', 'Magang', 'Y', 'duit.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `siswa`
+--
+
+CREATE TABLE `siswa` (
+  `nis` varchar(9) NOT NULL,
+  `username` varchar(25) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `jk` varchar(1) NOT NULL,
+  `tempatlahir` varchar(30) NOT NULL,
+  `tanggallahir` date NOT NULL,
+  `idkelas` varchar(2) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `hp` varchar(15) NOT NULL,
+  `aktif` enum('Y','T') NOT NULL DEFAULT 'T',
+  `memilih` varchar(1) NOT NULL,
+  `foto` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `siswa`
+--
+
+INSERT INTO `siswa` (`nis`, `username`, `password`, `nama`, `jk`, `tempatlahir`, `tanggallahir`, `idkelas`, `email`, `hp`, `aktif`, `memilih`, `foto`) VALUES
+('1', 'gustam', '123', 'Naufal Mumtaz Ramadhan', 'L', 'Jepara', '2001-12-06', '1', 'naufal.mr@gmail.com', '0822', 'Y', '', 'IMG_20160813_092446.jpg'),
+('121212', '121212', '17afe9ec472cd0ff881c276d1125de58', 'mahmudin', 'L', 'Jepara', '2001-05-07', '1', '', '', 'T', '', ''),
+('2', 'humam', '6f99cd6a204c61990e0abbe993988efe', 'Humam Al Labib', 'L', 'Jepara', '2003-12-30', '4', 'humam.alabib@gmail.com', '0812', 'Y', '', 'WorkshopDepicta2017.jpg'),
+('3', 'bita', 'e2a00a6481b4654ff0e35325780a0d10', 'Nailah Fauziyyah Tsabitah Az Zahra', 'P', 'Depok', '2009-05-11', '5', 'nailah.fauziyyah@gmail.com', '000', 'Y', '', '170320152325.jpg');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `datapemilihan`
+--
+ALTER TABLE `datapemilihan`
+  ADD PRIMARY KEY (`idpemilihan`);
+
+--
+-- Indexes for table `guru`
+--
+ALTER TABLE `guru`
+  ADD PRIMARY KEY (`nip`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
+-- Indexes for table `kandidat`
+--
+ALTER TABLE `kandidat`
+  ADD PRIMARY KEY (`idkandidat`);
+
+--
+-- Indexes for table `kelas`
+--
+ALTER TABLE `kelas`
+  ADD PRIMARY KEY (`idkelas`);
+
+--
+-- Indexes for table `pengguna`
+--
+ALTER TABLE `pengguna`
+  ADD PRIMARY KEY (`idpengguna`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
+-- Indexes for table `siswa`
+--
+ALTER TABLE `siswa`
+  ADD PRIMARY KEY (`nis`),
+  ADD UNIQUE KEY `pengguna` (`username`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `datapemilihan`
+--
+ALTER TABLE `datapemilihan`
+  MODIFY `idpemilihan` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `kandidat`
+--
+ALTER TABLE `kandidat`
+  MODIFY `idkandidat` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `kelas`
+--
+ALTER TABLE `kelas`
+  MODIFY `idkelas` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `pengguna`
+--
+ALTER TABLE `pengguna`
+  MODIFY `idpengguna` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- Database: `test`
+--
+CREATE DATABASE IF NOT EXISTS `test` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `test`;
+--
+-- Database: `tugas pafirman`
+--
+CREATE DATABASE IF NOT EXISTS `tugas pafirman` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `tugas pafirman`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `osiss`
+--
+
+CREATE TABLE `osiss` (
+  `Rizal` int(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+--
+-- Database: `votes`
+--
+CREATE DATABASE IF NOT EXISTS `votes` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `votes`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vote_opsi`
+--
+
+CREATE TABLE `vote_opsi` (
+  `id_opsi` int(11) NOT NULL,
+  `nama_opsi` varchar(150) NOT NULL,
+  `thumbnail` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `vote_opsi`
+--
+
+INSERT INTO `vote_opsi` (`id_opsi`, `nama_opsi`, `thumbnail`) VALUES
+(1, 'Gambar 1', 'img/a3.jpg'),
+(2, 'Gambar 2', 'img/a6.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `voting`
+--
+
+CREATE TABLE `voting` (
+  `id_vote` int(11) NOT NULL,
+  `id_opsi` int(11) NOT NULL,
+  `date_create` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `voting`
+--
+
+INSERT INTO `voting` (`id_vote`, `id_opsi`, `date_create`) VALUES
+(1, 1, '2019-10-22 08:48:44');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `vote_opsi`
+--
+ALTER TABLE `vote_opsi`
+  ADD PRIMARY KEY (`id_opsi`);
+
+--
+-- Indexes for table `voting`
+--
+ALTER TABLE `voting`
+  ADD PRIMARY KEY (`id_vote`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `vote_opsi`
+--
+ALTER TABLE `vote_opsi`
+  MODIFY `id_opsi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `voting`
+--
+ALTER TABLE `voting`
+  MODIFY `id_vote` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- Database: `wpu_login`
+--
+CREATE DATABASE IF NOT EXISTS `wpu_login` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `wpu_login`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `image` varchar(128) NOT NULL,
+  `password` varchar(256) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `is_active` int(1) NOT NULL,
+  `date_created` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `name`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
+(5, 'Sandhika Galih', 'sandhikagalih@unpas.ac.id', 'profile1.jpg', '$2y$10$nXnrqGQTjpvg58OtOB/N.evYQjVlz7KIW37oUSQSQ2EgNMD0Dgrzq', 1, 1, 1552120289),
+(6, 'Doddy Ferdiansyah', 'doddy@gmail.com', 'profile.jpg', '$2y$10$FhGzXwwTWLN/yonJpDLR0.nKoeWlKWBoRG9bsk0jOAgbJ007XzeFO', 2, 1, 1552285263),
+(11, 'Sandhika Galih', 'sandhikagalih@gmail.com', 'default.jpg', '$2y$10$0QYEK1pB2L.Rdo.ZQsJO5eeTSpdzT7PvHaEwsuEyGSs0J1Qf5BoSq', 2, 1, 1553151354);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_access_menu`
+--
+
+CREATE TABLE `user_access_menu` (
+  `id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `menu_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_access_menu`
+--
+
+INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
+(1, 1, 1),
+(3, 2, 2),
+(7, 1, 3),
+(8, 1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_menu`
+--
+
+CREATE TABLE `user_menu` (
+  `id` int(11) NOT NULL,
+  `menu` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_menu`
+--
+
+INSERT INTO `user_menu` (`id`, `menu`) VALUES
+(1, 'Admin'),
+(2, 'User'),
+(3, 'Menu');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_role`
+--
+
+CREATE TABLE `user_role` (
+  `id` int(11) NOT NULL,
+  `role` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_role`
+--
+
+INSERT INTO `user_role` (`id`, `role`) VALUES
+(1, 'Administrator'),
+(2, 'Member');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_sub_menu`
+--
+
+CREATE TABLE `user_sub_menu` (
+  `id` int(11) NOT NULL,
+  `menu_id` int(11) NOT NULL,
+  `title` varchar(128) NOT NULL,
+  `url` varchar(128) NOT NULL,
+  `icon` varchar(128) NOT NULL,
+  `is_active` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_sub_menu`
+--
+
+INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active`) VALUES
+(1, 1, 'Dashboard', 'admin', 'fas fa-fw fa-tachometer-alt', 1),
+(2, 2, 'My Profile', 'user', 'fas fa-fw fa-user', 1),
+(3, 2, 'Edit Profile', 'user/edit', 'fas fa-fw fa-user-edit', 1),
+(4, 3, 'Menu Management', 'menu', 'fas fa-fw fa-folder', 1),
+(5, 3, 'Submenu Management', 'menu/submenu', 'fas fa-fw fa-folder-open', 1),
+(7, 1, 'Role', 'admin/role', 'fas fa-fw fa-user-tie', 1),
+(8, 2, 'Change Password', 'user/changepassword', 'fas fa-fw fa-key', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_token`
+--
+
+CREATE TABLE `user_token` (
+  `id` int(11) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `token` varchar(128) NOT NULL,
+  `date_created` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_access_menu`
+--
+ALTER TABLE `user_access_menu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_menu`
+--
+ALTER TABLE `user_menu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_role`
+--
+ALTER TABLE `user_role`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_sub_menu`
+--
+ALTER TABLE `user_sub_menu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_token`
+--
+ALTER TABLE `user_token`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `user_access_menu`
+--
+ALTER TABLE `user_access_menu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `user_menu`
+--
+ALTER TABLE `user_menu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `user_role`
+--
+ALTER TABLE `user_role`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `user_sub_menu`
+--
+ALTER TABLE `user_sub_menu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `user_token`
+--
+ALTER TABLE `user_token`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
